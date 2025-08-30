@@ -39,20 +39,27 @@ const historyList = document.getElementById("historyList");
 const clearBtn = document.getElementById("clearHistory");
 
 cardCallBtns.forEach((btn) => {
+  const card = btn.closest(".card");
+  const serviceName = card.querySelector("h3").textContent;
+  const serviceNumber = card.querySelector("span").textContent;
   btn.addEventListener("click", () => {
     if (coincount >= 20) {
       const confirmCall = confirm(
-        "📞 Call successful!\n Calling\n Your call is connected."
+        `📞 Call successful!\n Calling\n ${serviceName}\n${serviceNumber}`
       );
       if (confirmCall) {
         coincount -= 20;
         coinCountA.textContent = coincount;
 
+        const card = btn.closest(".card");
+        const serviceName = card.querySelector("h3").textContent;
+        const serviceNumber = card.querySelector("span").textContent;
+
         const now = new Date();
         const time = now.toLocaleTimeString();
         const li = document.createElement("li");
         li.className = " mx-5 p-2 bg-white rounded shadow flex justify-between";
-        li.textContent = `Call made at ${time}`;
+        li.textContent = `${serviceName} (${serviceNumber})-Call made at ${time}`;
         historyList.appendChild(li);
       }
     } else {
